@@ -1,0 +1,66 @@
+----item----
+version: 1
+id: {88575E2F-A38E-4211-8A54-9F57BAC69150}
+database: core
+path: /sitecore/client/Applications/ExperienceAnalytics/Dashboard/Table Control Samples/Parameter/PageSettings/Parameter Data
+parent: {5C983ECA-6F0C-460D-8131-DB9645EA8108}
+name: Parameter Data
+master: {00000000-0000-0000-0000-000000000000}
+template: {B863A88F-534E-4E4B-8316-9C44D2D818B2}
+templatekey: ExperienceAnalyticsTableControl Parameters
+created: 20170706T214422Z
+
+----field----
+field: {9710F017-C2E6-486D-A8CB-91BB6A50E819}
+name: Type
+key: type
+content-length: 120
+
+OneNorth.ExperienceAnalyticsTableControl.DataSources.SampleParameterDataSource, OneNorth.ExperienceAnalyticsTableControl
+----field----
+field: {78B2FBD7-07EA-419A-BBAF-5F23DF5DD84B}
+name: Method
+key: method
+content-length: 3
+
+Get
+----field----
+field: {340ED707-A5F2-4F8E-B0BD-F00693FDE654}
+name: Parameters
+key: parameters
+content-length: 39
+
+id=c4bf1e2c-0e0b-476f-bd92-a31d20e2869b
+----version----
+language: en
+version: 1
+revision: a4847df1-d8e0-4a19-a95f-a4bc8ea6802b
+
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20170706T214422Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+a4847df1-d8e0-4a19-a95f-a4bc8ea6802b
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20170706T215540Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
