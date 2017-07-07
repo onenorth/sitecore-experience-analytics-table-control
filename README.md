@@ -1,6 +1,6 @@
 # Sitecore Experience Analytics Table Control Readme
 
-> Note: This module has been tested on Sitecore 8.2+. If you find this does not work on prior versions, please submit an Issue, and I will try to add support.  You can also submit a pull request.
+> Note: This module has been tested on Sitecore 8.2+. If you find this does not work on prior versions, please submit an Issue and I will try to add support.  You can also submit a pull request.
 
 ## Overview
 
@@ -8,15 +8,17 @@ Sitecore Experience Analytics reporting supports a list control that renders tab
 
 We had a requirement to customize the columns in the report.  We also had the requirement to display non-standard analytics data.  I did a bunch of research and did not find very many examples of how to achieve this.  I did find the following article: [Custom Dashboard Reports](https://community.sitecore.net/technical_blogs/b/integration_solution_team_blog/posts/custom-dashboard-reports).  It explains how to display aggregated data in a custom list. This is exactly what we needed.  The article was very helpful, but did not provide a working example.  I ended up needing to reflect into the [Sitecore Media Framework 2.1](https://dev.sitecore.net/Downloads/Sitecore_Media_Framework/21/Sitecore_Media_Framework_21.aspx) to find the missing pieces.
 
-In an effort to help others, I am posting the complete and fully working code that we used to get this working.  I tweaked the code from the original [post](https://community.sitecore.net/technical_blogs/b/integration_solution_team_blog/posts/custom-dashboard-reports) to support using configurable types instead of SQL to provide the data.  This comes in handy if you want to display results from the **sitecore_analytics_index** Lucene index.
+In an effort to help others, I am posting the complete and fully working code that I used to get this working.  I modified the code from the original [post](https://community.sitecore.net/technical_blogs/b/integration_solution_team_blog/posts/custom-dashboard-reports) to support using configurable types / methods instead of using SQL to provide the data.  This comes in handy if you want to display results from the **sitecore_analytics_index** Lucene index.
 
 You can follow the original blog [post](https://community.sitecore.net/technical_blogs/b/integration_solution_team_blog/posts/custom-dashboard-reports) for an explanation of how this was built.  The *Sitecore Media Framework 2.1* that this example was based on is located here: [Sitecore Media Framework 2.1](https://dev.sitecore.net/Downloads/Sitecore_Media_Framework/21/Sitecore_Media_Framework_21.aspx).
 
 ![Basic Sample](https://raw.github.com/onenorth/sitecore-experience-analytics-table-control/master/img/basic-sample.png)
 
+I named the custom control **Experience Analytics Table Control** because the control returns tabular data with user defined columns. A control by this name also does not exist yet.
+
 ### Features
 
-The Experience Analytics Table Control supports rendering custom data within the Sitecore Experience Analytics dashboard.  The data is displayed in tabular form.  The columns in the table are customizable.  The look and feel matches the existing List Control.  The data is provided via configurable types / methods.  The methods provide the data that is displayed in the table.
+The **Experience Analytics Table Control** supports rendering custom data within the Sitecore Experience Analytics dashboard.  The data is displayed in tabular form.  The columns in the table are customizable.  The look and feel matches the existing List Control.  The data is provided via configurable types / methods.  The methods provide the data that is displayed in the table.
 
 ## Installation
 
@@ -26,19 +28,19 @@ Install the update package located here: https://github.com/onenorth/sitecore-ex
 
 ## Configuration
 
-The Sitecore Experience Analytics Table Control has a single configuration file **z.OneNorth.ExperienceAnalyticsTableControl.config**.  This file needs to be placed in the App_Config/Include folder. The primary purpose of the file is to register the MVC route used for the web service that provides the data to the Experience Analytics Table Control.
+The Sitecore Experience Analytics Table Control has a single configuration file **z.OneNorth.ExperienceAnalyticsTableControl.config**.  This file needs to be placed in the *App_Config/Include* folder. The primary purpose of the file is to register the MVC route used for the web service that provides the data to the Experience Analytics Table Control.
 
 > Note: This configuration file must be placed after the *Sitecore.ExperienceAnalytics* config files for the route to be setup correctly.
 
 ## Samples / Examples
 
-Samples that demonstrate usage are automatically installed if you installed the update package.  The samples appear in the Sitecore Experience Analytics Dashboard under **Table Control Samples**.
+Samples that demonstrate usage are automatically installed via the update package.  The samples appear in the Sitecore Experience Analytics Dashboard under **Table Control Samples**.  The samples can be removed by deleting the following node in the *Core* database: */sitecore/client/Applications/ExperienceAnalytics/Dashboard/Table Control Samples*.
 
 ![Basic Sample](https://raw.github.com/onenorth/sitecore-experience-analytics-table-control/master/img/navigation.png)
 
 ## Usage
 
-> NOTE: In general you should be using Sitecore Rocks to configure SPEAK Components.  All of the following examples use Sitecore Rocks. 
+> NOTE: In general you should be using Sitecore Rocks to configure SPEAK Components.  The following following examples use Sitecore Rocks. 
 
 ### ExperienceAnalyticsTableControl
 
@@ -48,17 +50,17 @@ The **ExperienceAnalyticsTableControl** is used in a similar fashion to the othe
 
 ### Layout
 
-The **ExperienceAnalyticsTableControl** is included in layouts using Add Rendering.  Note, you can find the control by searching for it by name.  Once added to a layout, configure the **Placeholder** and define a **Data Source**.
+The ExperienceAnalyticsTableControl is included in layouts using **Add Rendering**.  Note, you can find the control by searching for it by name.  Once added to a layout, configure the **Placeholder** and define a **Data Source**.
 
 ![Layout](https://raw.github.com/onenorth/sitecore-experience-analytics-table-control/master/img/layout.png)
 
 ### DataSource
 
-Create a Data Source item based on the **ExperienceAnalyticsTableControl Parameters** template.  Place this item under the Dashboard Page / **PageSettings**.  Specify the Type and Method that will be used to provide the data to the Table.  We will setup the Type and Method in the **Code** section below
+Create a Data Source item based on the **ExperienceAnalyticsTableControl Parameters** template.  Place this item under the **Dashboard Page / PageSettings**.  Specify the **Type** and **Method** that will be used to provide the data to the Table.  We will setup the Type and Method in the **Code** section below
 
 ![Data Source](https://raw.github.com/onenorth/sitecore-experience-analytics-table-control/master/img/datasource.png)
 
-Define the columns that you want in the table and specify the order.  The columns are defined by adding child items under the DataSource item.  The child items are of type **ColumnField**. The insert options have been already setup to support this.  The **HeaderText** and **DataField** should be set appropriately.  The **DataField** value should match the property names returned by the type/method.  It is case sensitive.
+Define the columns that you want in the table and specify the order.  The columns are defined by adding child items under the DataSource item.  The child items are of type **ColumnField**. The insert options have been already setup to support this.  The **HeaderText** and **DataField** should be set appropriately.  The **DataField** value should match the property names returned by the type/method exactly.  It is case sensitive.
 
 ![Columns](https://raw.github.com/onenorth/sitecore-experience-analytics-table-control/master/img/columns.png)
 
@@ -109,7 +111,7 @@ namespace OneNorth.ExperienceAnalyticsTableControl.DataSources
 
 ```
 
-The above code is just a sample.  Logic can be provided to retrieve data from various sources such as Lucene indexes or SQL databases.  The order of the Get method parameters does not matter.  The names of the parameters do matter.  The names are exact matched against **dateFrom**, **dateTo**, and **siteName**.  Additional parameters can be provided which will be populated from the **Parameters** field of the Data Source.  The parameter name must match the key in the parameters field.  You can take a look a the **Parameter** sample for an example.
+The above code is just a sample.  Logic can be provided to retrieve data from various sources such as Lucene indexes or SQL databases.  The order of the Get method parameters does not matter.  The names of the parameters do matter.  The names are exact matched against **dateFrom**, **dateTo**, and **siteName**.  Additional parameters can be provided which will be populated from the **Parameters** field of the Data Source.  The parameter name must match the key in the parameters field.  You can take a look at the **Parameter** sample for an example.
 
 The framework and logic can be extended to take data input from other sources such as other controls in the Layout.  This will require customizations to the Table Control.
 
@@ -122,7 +124,9 @@ To do this, open the **Properties** of the **TDS.Core** project.
 In the properties, navigate to the **Update Package** tab.
 Enter the location of the bin folder for the Sitecore installation in the **Sitecore Assembly Path** field. 
 
-#License
+> NOTE: The NuGet packages don't currently include all the necessary assemblies for TDS.
+
+# License
 
 The associated code is released under the terms of the [MIT license](http://onenorth.mit-license.org).
 
