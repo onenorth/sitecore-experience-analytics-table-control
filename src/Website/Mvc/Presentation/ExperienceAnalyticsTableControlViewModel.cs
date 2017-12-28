@@ -5,7 +5,6 @@ using Sitecore;
 using Sitecore.Data;
 using Sitecore.ExperienceAnalytics.Client;
 using Sitecore.ExperienceAnalytics.Client.Mvc.Presentation;
-using Sitecore.ExperienceAnalytics.Core.Diagnostics;
 using Sitecore.Links;
 using Sitecore.Mvc.Presentation;
 using System.Collections.Generic;
@@ -15,7 +14,6 @@ namespace OneNorth.ExperienceAnalyticsTableControl.Mvc.Presentation
 {
     public class ExperienceAnalyticsTableControlViewModel : DvcRenderingModel
     {
-        private readonly ILogger logger;
 
         public string ColumnsItemID { get; protected set; }
 
@@ -24,7 +22,6 @@ namespace OneNorth.ExperienceAnalyticsTableControl.Mvc.Presentation
         public ExperienceAnalyticsTableControlViewModel()
         {
             UseTimeResolution = false;
-            logger = ClientContainer.GetLogger();
         }
 
         public override void Initialize(Rendering rendering)
@@ -82,11 +79,7 @@ namespace OneNorth.ExperienceAnalyticsTableControl.Mvc.Presentation
                     hasTargetPage = targetPage != null;
                     if (hasTargetPage)
                         Control.Attributes.Add("data-sc-targetpageurl", LinkManager.GetItemUrl(targetPage));
-                    else
-                        logger.Warn("The TargetPage does not contain a valid item id for controlid: " + Control.ControlId);
                 }
-                else
-                    logger.Warn("The TargetPage does not contain a valid item id for controlid: " + Control.ControlId);
             }
             if (!string.IsNullOrEmpty(keysSortByMetric))
                 Control.Attributes.Add("data-sc-orderkeysby", GetDataFieldValue(new ID(keysSortByMetric)));

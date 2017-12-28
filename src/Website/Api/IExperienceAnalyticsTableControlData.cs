@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Sitecore.ExperienceAnalytics.Api.Response;
 
 namespace OneNorth.ExperienceAnalyticsTableControl.Api
 {

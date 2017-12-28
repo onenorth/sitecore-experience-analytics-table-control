@@ -1,5 +1,4 @@
-﻿using Sitecore.ExperienceAnalytics.Api.Response;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace OneNorth.ExperienceAnalyticsTableControl.Api
